@@ -3,6 +3,7 @@ async function getDeath() {
     document.getElementById("result").innerHTML = "Calculating your cosmic doom...";
     const deathImage = document.getElementById("deathImage");
     deathImage.src = ""; // Clear previous image
+    deathImage.style.display = "none"; // Hide initially
 
     const cosmicObjects = [
         "Ceres", "Vesta", "Pallas", "Juno", "Eros", "Psyche", "Apophis",
@@ -55,47 +56,47 @@ async function getDeath() {
     document.getElementById("result").innerHTML = death;
 
     const actionImages = {
-        "vaporized": "https://i.imgur.com/X8rK5P9.gif",       // Vaporizing blast
-        "crushed": "https://i.imgur.com/9pN2XvK.gif",        // Crushing smash
-        "eaten": "https://i.imgur.com/YxR9m4T.gif",          // Eating gulp
-        "probed": "https://i.imgur.com/0vTqK0L.gif",         // Alien probing
-        "flattened": "https://i.imgur.com/9nY8P2M.gif",      // Pancake flatten
-        "sucked into": "https://i.imgur.com/8mJ4R9Q.gif",    // Vacuum suck
-        "melted": "https://i.imgur.com/7rK5P9X.gif",         // Melting goo
-        "zapped": "https://i.imgur.com/3vN6R8L.gif",         // Electric zap
-        "obliterated": "https://i.imgur.com/5H7vL8Q.gif",    // Massive explosion
-        "teleported inside": "https://i.imgur.com/5tR9K7P.gif", // Teleport flash
-        "smothered": "https://i.imgur.com/7nP8X4V.gif",      // Smothering pile-on
-        "disintegrated": "https://i.imgur.com/6H7vL8Q.gif",  // Disintegration dust
-        "swallowed whole": "https://i.imgur.com/YxR9m4T.gif", // Big swallow
-        "blasted": "https://i.imgur.com/5H7vL8Q.gif",        // Explosive blast
-        "impaled": "https://i.imgur.com/8pN2XvK.gif",        // Stabbing impale
-        "frozen by": "https://i.imgur.com/4rM9K5Q.gif",      // Freezing ice
-        "cooked by": "https://i.imgur.com/7rK5P9X.gif",      // Cooking melt
-        "tangled in": "https://i.imgur.com/8mJ4R9Q.gif",     // Tangled mess
-        "dissolved": "https://i.imgur.com/7rK5P9X.gif",      // Dissolving liquid
-        "electrocuted": "https://i.imgur.com/3vN6R8L.gif",   // Electric shock
-        "launched into": "https://i.imgur.com/0nP5K2X.gif",  // Rocket launch
-        "shredded": "https://i.imgur.com/8pN2XvK.gif",       // Shredding tear
-        "bamboozled": "https://i.imgur.com/5nR8P7K.gif",     // Bamboozled confusion
-        "squashed": "https://i.imgur.com/9pN2XvK.gif",       // Squash flat
-        "hypnotized by": "https://i.imgur.com/7tN9K3P.gif",  // Hypnotic swirl
-        "chased down by": "https://i.imgur.com/6nY8P2M.gif", // Chase tackle
-        "engulfed": "https://i.imgur.com/8mJ4R9Q.gif",       // Engulfing wave
-        "spaghettified": "https://i.imgur.com/7rK5P9X.gif",  // Spaghetti stretch
-        "warped": "https://i.imgur.com/5tR9K7P.gif",         // Warp twist
-        "tickled to death": "https://i.imgur.com/3nP9K5X.gif", // Tickle frenzy
-        "photobombed into oblivion": "https://i.imgur.com/5nR8P7K.gif", // Photobomb chaos
-        "danced off": "https://i.imgur.com/6tN7K9P.gif",     // Dance flop
-        "abducted and yeeted": "https://i.imgur.com/0vTqK0L.gif", // Alien yeet
-        "karate-chopped": "https://i.imgur.com/7nP8X4V.gif", // Karate chop
-        "moonwalked over": "https://i.imgur.com/5tR9K7P.gif", // Moonwalk slide
-        "overdosed on cosmic rays": "https://i.imgur.com/3vN6R8L.gif", // Radiation zap
-        "pranked into a wormhole": "https://i.imgur.com/8mJ4R9Q.gif", // Prank suck
-        "slapped into orbit": "https://i.imgur.com/9nY8P2M.gif", // Slap smash
-        "burped into stardust": "https://i.imgur.com/8pN2XvK.gif", // Burp burst
-        "noodled": "https://i.imgur.com/7rK5P9X.gif",        // Noodle stretch
-        "high-fived to smithereens": "https://i.imgur.com/0nP5K2X.gif" // High-five launch
+        "vaporized": "https://i.imgur.com/X8rK5P9.gif",
+        "crushed": "https://i.imgur.com/9pN2XvK.gif",
+        "eaten": "https://i.imgur.com/YxR9m4T.gif",
+        "probed": "https://i.imgur.com/0vTqK0L.gif",
+        "flattened": "https://i.imgur.com/9nY8P2M.gif",
+        "sucked into": "https://i.imgur.com/8mJ4R9Q.gif",
+        "melted": "https://i.imgur.com/7rK5P9X.gif",
+        "zapped": "https://i.imgur.com/3vN6R8L.gif",
+        "obliterated": "https://i.imgur.com/5H7vL8Q.gif",
+        "teleported inside": "https://i.imgur.com/5tR9K7P.gif",
+        "smothered": "https://i.imgur.com/7nP8X4V.gif",
+        "disintegrated": "https://i.imgur.com/6H7vL8Q.gif",
+        "swallowed whole": "https://i.imgur.com/YxR9m4T.gif",
+        "blasted": "https://i.imgur.com/5H7vL8Q.gif",
+        "impaled": "https://i.imgur.com/8pN2XvK.gif",
+        "frozen by": "https://i.imgur.com/4rM9K5Q.gif",
+        "cooked by": "https://i.imgur.com/7rK5P9X.gif",
+        "tangled in": "https://i.imgur.com/8mJ4R9Q.gif",
+        "dissolved": "https://i.imgur.com/7rK5P9X.gif",
+        "electrocuted": "https://i.imgur.com/3vN6R8L.gif",
+        "launched into": "https://i.imgur.com/0nP5K2X.gif",
+        "shredded": "https://i.imgur.com/8pN2XvK.gif",
+        "bamboozled": "https://i.imgur.com/5nR8P7K.gif",
+        "squashed": "https://i.imgur.com/9pN2XvK.gif",
+        "hypnotized by": "https://i.imgur.com/7tN9K3P.gif",
+        "chased down by": "https://i.imgur.com/6nY8P2M.gif",
+        "engulfed": "https://i.imgur.com/8mJ4R9Q.gif",
+        "spaghettified": "https://i.imgur.com/7rK5P9X.gif",
+        "warped": "https://i.imgur.com/5tR9K7P.gif",
+        "tickled to death": "https://i.imgur.com/3nP9K5X.gif",
+        "photobombed into oblivion": "https://i.imgur.com/5nR8P7K.gif",
+        "danced off": "https://i.imgur.com/6tN7K9P.gif",
+        "abducted and yeeted": "https://i.imgur.com/0vTqK0L.gif",
+        "karate-chopped": "https://i.imgur.com/7nP8X4V.gif",
+        "moonwalked over": "https://i.imgur.com/5tR9K7P.gif",
+        "overdosed on cosmic rays": "https://i.imgur.com/3vN6R8L.gif",
+        "pranked into a wormhole": "https://i.imgur.com/8mJ4R9Q.gif",
+        "slapped into orbit": "https://i.imgur.com/9nY8P2M.gif",
+        "burped into stardust": "https://i.imgur.com/8pN2XvK.gif",
+        "noodled": "https://i.imgur.com/7rK5P9X.gif",
+        "high-fived to smithereens": "https://i.imgur.com/0nP5K2X.gif"
     };
 
     if (!deathImage) {
@@ -104,7 +105,7 @@ async function getDeath() {
     }
 
     const imgSrc = actionImages[action];
-    const fallbackImage = "https://i.imgur.com/5nR8P7K.gif"; // Confused cat as fallback
+    const fallbackImage = "https://i.imgur.com/5nR8P7K.gif";
 
     console.log(`Action: "${action}", Attempting to load image: ${imgSrc}`);
 
@@ -113,13 +114,25 @@ async function getDeath() {
 
     img.onload = () => {
         deathImage.src = img.src;
-        deathImage.style.display = "block"; // Force display
+        deathImage.style.display = "block";
+        deathImage.style.width = "300px";
+        deathImage.style.height = img.naturalHeight + "px"; // Set explicit height
+        deathImage.style.border = "5px solid red"; // Debug border
+        // Force reflow
+        deathImage.style.display = "none";
+        void deathImage.offsetWidth; // Trigger reflow
+        deathImage.style.display = "block";
+        console.log("Image should be visible now at:", deathImage.getBoundingClientRect());
         console.log(`Action: "${action}", Image loaded successfully: ${deathImage.src}`);
     };
     img.onerror = () => {
         console.error(`Action: "${action}", Image failed to load: ${imgSrc}`);
         deathImage.src = fallbackImage;
-        deathImage.style.display = "block"; // Force display
+        deathImage.style.display = "block";
+        deathImage.style.width = "300px";
+        deathImage.style.height = "200px"; // Fallback height
+        deathImage.style.border = "5px solid red";
+        console.log("Image should be visible now at:", deathImage.getBoundingClientRect());
         console.log(`Action: "${action}", Fallback loaded: ${deathImage.src}`);
     };
 }
@@ -150,7 +163,7 @@ function addCosmicStuff() {
             el.left < centerSafeZone.x + centerSafeZone.width / 2 &&
             el.left + el.width > centerSafeZone.x - centerSafeZone.width / 2 &&
             el.top < centerSafeZone.y + centerSafeZone.height / 2 &&
-            el.top + el.height > centerSafeZone.y - centerSafeZone.height / 2
+            el.top + el1.height > centerSafeZone.y - centerSafeZone.height / 2
         );
     }
 
