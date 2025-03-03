@@ -57,7 +57,7 @@
             max-width: 300px;
             width: 300px;
             height: auto;
-            display: block;
+            display: none; /* Hidden by default */
             border: 2px solid #FFD700;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
@@ -69,7 +69,49 @@
     <h1>What’s Your Cosmic Death Scenario?</h1>
     <button onclick="getDeath()">Find Out Now!</button>
     <div id="result"></div>
-    <div id="deathImageContainer"></div>
+    <div id="deathImageContainer">
+        <img id="img-vaporized" class="death-image" src="https://i.imgur.com/X8rK5P9.gif" alt="Cosmic Death Scene">
+        <img id="img-crushed" class="death-image" src="https://i.imgur.com/9pN2XvK.gif" alt="Cosmic Death Scene">
+        <img id="img-eaten" class="death-image" src="https://i.imgur.com/YxR9m4T.gif" alt="Cosmic Death Scene">
+        <img id="img-probed" class="death-image" src="https://i.imgur.com/0vTqK0L.gif" alt="Cosmic Death Scene">
+        <img id="img-flattened" class="death-image" src="https://i.imgur.com/9nY8P2M.gif" alt="Cosmic Death Scene">
+        <img id="img-sucked-into" class="death-image" src="https://i.imgur.com/8mJ4R9Q.gif" alt="Cosmic Death Scene">
+        <img id="img-melted" class="death-image" src="https://i.imgur.com/7rK5P9X.gif" alt="Cosmic Death Scene">
+        <img id="img-zapped" class="death-image" src="https://i.imgur.com/3vN6R8L.gif" alt="Cosmic Death Scene">
+        <img id="img-obliterated" class="death-image" src="https://i.imgur.com/5H7vL8Q.gif" alt="Cosmic Death Scene">
+        <img id="img-teleported-inside" class="death-image" src="https://i.imgur.com/5tR9K7P.gif" alt="Cosmic Death Scene">
+        <img id="img-smothered" class="death-image" src="https://i.imgur.com/7nP8X4V.gif" alt="Cosmic Death Scene">
+        <img id="img-disintegrated" class="death-image" src="https://i.imgur.com/6H7vL8Q.gif" alt="Cosmic Death Scene">
+        <img id="img-swallowed-whole" class="death-image" src="https://i.imgur.com/YxR9m4T.gif" alt="Cosmic Death Scene">
+        <img id="img-blasted" class="death-image" src="https://i.imgur.com/5H7vL8Q.gif" alt="Cosmic Death Scene">
+        <img id="img-impaled" class="death-image" src="https://i.imgur.com/8pN2XvK.gif" alt="Cosmic Death Scene">
+        <img id="img-frozen-by" class="death-image" src="https://i.imgur.com/4rM9K5Q.gif" alt="Cosmic Death Scene">
+        <img id="img-cooked-by" class="death-image" src="https://i.imgur.com/7rK5P9X.gif" alt="Cosmic Death Scene">
+        <img id="img-tangled-in" class="death-image" src="https://i.imgur.com/8mJ4R9Q.gif" alt="Cosmic Death Scene">
+        <img id="img-dissolved" class="death-image" src="https://i.imgur.com/7rK5P9X.gif" alt="Cosmic Death Scene">
+        <img id="img-electrocuted" class="death-image" src="https://i.imgur.com/3vN6R8L.gif" alt="Cosmic Death Scene">
+        <img id="img-launched-into" class="death-image" src="https://i.imgur.com/0nP5K2X.gif" alt="Cosmic Death Scene">
+        <img id="img-shredded" class="death-image" src="https://i.imgur.com/8pN2XvK.gif" alt="Cosmic Death Scene">
+        <img id="img-bamboozled" class="death-image" src="https://i.imgur.com/5nR8P7K.gif" alt="Cosmic Death Scene">
+        <img id="img-squashed" class="death-image" src="https://i.imgur.com/9pN2XvK.gif" alt="Cosmic Death Scene">
+        <img id="img-hypnotized-by" class="death-image" src="https://i.imgur.com/7tN9K3P.gif" alt="Cosmic Death Scene">
+        <img id="img-chased-down-by" class="death-image" src="https://i.imgur.com/6nY8P2M.gif" alt="Cosmic Death Scene">
+        <img id="img-engulfed" class="death-image" src="https://i.imgur.com/8mJ4R9Q.gif" alt="Cosmic Death Scene">
+        <img id="img-spaghettified" class="death-image" src="https://i.imgur.com/7rK5P9X.gif" alt="Cosmic Death Scene">
+        <img id="img-warped" class="death-image" src="https://i.imgur.com/5tR9K7P.gif" alt="Cosmic Death Scene">
+        <img id="img-tickled-to-death" class="death-image" src="https://i.imgur.com/3nP9K5X.gif" alt="Cosmic Death Scene">
+        <img id="img-photobombed-into-oblivion" class="death-image" src="https://i.imgur.com/5nR8P7K.gif" alt="Cosmic Death Scene">
+        <img id="img-danced-off" class="death-image" src="https://i.imgur.com/6tN7K9P.gif" alt="Cosmic Death Scene">
+        <img id="img-abducted-and-yeeted" class="death-image" src="https://i.imgur.com/0vTqK0L.gif" alt="Cosmic Death Scene">
+        <img id="img-karate-chopped" class="death-image" src="https://i.imgur.com/7nP8X4V.gif" alt="Cosmic Death Scene">
+        <img id="img-moonwalked-over" class="death-image" src="https://i.imgur.com/5tR9K7P.gif" alt="Cosmic Death Scene">
+        <img id="img-overdosed-on-cosmic-rays" class="death-image" src="https://i.imgur.com/3vN6R8L.gif" alt="Cosmic Death Scene">
+        <img id="img-pranked-into-a-wormhole" class="death-image" src="https://i.imgur.com/8mJ4R9Q.gif" alt="Cosmic Death Scene">
+        <img id="img-slapped-into-orbit" class="death-image" src="https://i.imgur.com/9nY8P2M.gif" alt="Cosmic Death Scene">
+        <img id="img-burped-into-stardust" class="death-image" src="https://i.imgur.com/8pN2XvK.gif" alt="Cosmic Death Scene">
+        <img id="img-noodled" class="death-image" src="https://i.imgur.com/7rK5P9X.gif" alt="Cosmic Death Scene">
+        <img id="img-high-fived-to-smithereens" class="death-image" src="https://i.imgur.com/0nP5K2X.gif" alt="Cosmic Death Scene">
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
