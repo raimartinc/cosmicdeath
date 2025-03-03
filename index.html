@@ -9,13 +9,9 @@
             color: white;
             text-align: center;
             font-family: Arial;
-            overflow: hidden;
             margin: 0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            padding: 0;
+            min-height: 100vh;
             position: relative;
         }
         .star {
@@ -100,10 +96,8 @@
             box-shadow: 0 0 20px #FFD700, inset 0 0 10px #FFFFFF;
             text-transform: uppercase;
             letter-spacing: 2px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.2s, box-shadow 0.2s;
+            margin: 20px auto;
+            display: block;
         }
         button:hover {
             transform: scale(1.1);
@@ -113,28 +107,26 @@
             position: relative;
             z-index: 10;
             text-shadow: 0 0 10px white;
-            margin-bottom: 20px;
+            margin: 20px 0;
         }
         #result {
-            margin-top: 20px;
             font-size: 24px;
             position: relative;
             z-index: 10;
             text-shadow: 0 0 5px white;
-            opacity: 1; /* Always visible */
+            margin: 20px 0;
         }
         #deathImage {
-            margin-top: 20px;
             max-width: 300px;
-            width: 300px; /* Force size */
+            width: 300px;
             height: auto;
-            display: block; /* Always block */
+            display: block;
             border: 2px solid #FFD700;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
-            z-index: 20; /* Above all else */
+            z-index: 20;
             position: relative;
-            opacity: 1; /* Always visible */
+            margin: 20px auto;
         }
     </style>
 </head>

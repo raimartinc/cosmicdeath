@@ -113,27 +113,27 @@ async function getDeath() {
     img.src = imgSrc;
 
     img.onload = () => {
-        deathImage.src = img.src;
-        deathImage.style.display = "block";
-        deathImage.style.width = "300px";
-        deathImage.style.height = img.naturalHeight + "px"; // Set explicit height
-        deathImage.style.border = "5px solid red"; // Debug border
-        // Force reflow
-        deathImage.style.display = "none";
-        void deathImage.offsetWidth; // Trigger reflow
-        deathImage.style.display = "block";
-        console.log("Image should be visible now at:", deathImage.getBoundingClientRect());
-        console.log(`Action: "${action}", Image loaded successfully: ${deathImage.src}`);
+        deathImage.src = img.src; // Set src first
+        setTimeout(() => { // Delay to ensure load
+            deathImage.style.width = "300px";
+            deathImage.style.height = img.naturalHeight + "px";
+            deathImage.style.display = "block";
+            deathImage.style.border = "5px solid red"; // Debug border
+            console.log("Image should be visible now at:", deathImage.getBoundingClientRect());
+            console.log(`Action: "${action}", Image loaded successfully: ${deathImage.src}`);
+        }, 100); // 100ms delay
     };
     img.onerror = () => {
         console.error(`Action: "${action}", Image failed to load: ${imgSrc}`);
         deathImage.src = fallbackImage;
-        deathImage.style.display = "block";
-        deathImage.style.width = "300px";
-        deathImage.style.height = "200px"; // Fallback height
-        deathImage.style.border = "5px solid red";
-        console.log("Image should be visible now at:", deathImage.getBoundingClientRect());
-        console.log(`Action: "${action}", Fallback loaded: ${deathImage.src}`);
+        setTimeout(() => {
+            deathImage.style.width = "300px";
+            deathImage.style.height = "200px";
+            deathImage.style.display = "block";
+            deathImage.style.border = "5px solid red";
+            console.log("Image should be visible now at:", deathImage.getBoundingClientRect());
+            console.log(`Action: "${action}", Fallback loaded: ${deathImage.src}`);
+        }, 100);
     };
 }
 
