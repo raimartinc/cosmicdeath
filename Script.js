@@ -1,9 +1,8 @@
 async function getDeath() {
     console.log("Button clicked - starting getDeath!");
     document.getElementById("result").innerHTML = "Calculating your cosmic doom...";
-    const deathImage = document.getElementById("deathImage");
-    deathImage.src = ""; // Clear previous image
-    deathImage.style.display = "none"; // Hide initially
+    const container = document.getElementById("deathImageContainer");
+    container.innerHTML = ""; // Clear previous image
 
     const cosmicObjects = [
         "Ceres", "Vesta", "Pallas", "Juno", "Eros", "Psyche", "Apophis",
@@ -99,8 +98,8 @@ async function getDeath() {
         "high-fived to smithereens": "https://i.imgur.com/0nP5K2X.gif"
     };
 
-    if (!deathImage) {
-        console.error("Image element not found!");
+    if (!container) {
+        console.error("Image container not found!");
         return;
     }
 
@@ -111,174 +110,21 @@ async function getDeath() {
 
     const img = new Image();
     img.src = imgSrc;
+    img.className = "death-image";
+    img.alt = "Cosmic Death Scene";
 
     img.onload = () => {
-        deathImage.src = img.src; // Set src first
-        setTimeout(() => { // Delay to ensure load
-            deathImage.style.width = "300px";
-            deathImage.style.height = img.naturalHeight + "px";
-            deathImage.style.display = "block";
-            deathImage.style.border = "5px solid red"; // Debug border
-            console.log("Image should be visible now at:", deathImage.getBoundingClientRect());
-            console.log(`Action: "${action}", Image loaded successfully: ${deathImage.src}`);
-        }, 100); // 100ms delay
+        container.appendChild(img);
+        console.log(`Action: "${action}", Image loaded successfully: ${img.src}`);
+        console.log("Image dimensions:", img.width, img.height);
     };
     img.onerror = () => {
         console.error(`Action: "${action}", Image failed to load: ${imgSrc}`);
-        deathImage.src = fallbackImage;
-        setTimeout(() => {
-            deathImage.style.width = "300px";
-            deathImage.style.height = "200px";
-            deathImage.style.display = "block";
-            deathImage.style.border = "5px solid red";
-            console.log("Image should be visible now at:", deathImage.getBoundingClientRect());
-            console.log(`Action: "${action}", Fallback loaded: ${deathImage.src}`);
-        }, 100);
+        img.src = fallbackImage;
+        container.appendChild(img);
+        console.log(`Action: "${action}", Fallback loaded: ${img.src}`);
     };
 }
 
-// Cosmic background setup (unchanged)
-function addCosmicStuff() {
-    const body = document.body;
-    const elements = [];
-
-    const centerSafeZone = {
-        x: 50,
-        y: 50,
-        width: 40,
-        height: 60
-    };
-
-    function doElementsOverlap(el1, el2) {
-        return (
-            el1.left < el2.left + el2.width &&
-            el1.left + el1.width > el2.left &&
-            el1.top < el2.top + el2.height &&
-            el1.top + el1.height > el2.top
-        );
-    }
-
-    function overlapsCenter(el) {
-        return (
-            el.left < centerSafeZone.x + centerSafeZone.width / 2 &&
-            el.left + el.width > centerSafeZone.x - centerSafeZone.width / 2 &&
-            el.top < centerSafeZone.y + centerSafeZone.height / 2 &&
-            el.top + el1.height > centerSafeZone.y - centerSafeZone.height / 2
-        );
-    }
-
-    function getValidPosition(width, height) {
-        let attempts = 0;
-        const maxAttempts = 50;
-        let position;
-        do {
-            position = {
-                left: Math.random() * (100 - width),
-                top: Math.random() * (100 - height),
-                width: width,
-                height: height
-            };
-            attempts++;
-        } while (
-            (elements.some(el => doElementsOverlap(position, el)) || overlapsCenter(position)) &&
-            attempts < maxAttempts
-        );
-        return position;
-    }
-
-    for (let i = 0; i < 50; i++) {
-        const star = document.createElement("div");
-        star.className = "star";
-        const size = Math.random() * 3 + 1;
-        star.style.width = `${size}px`;
-        star.style.height = `${size}px`;
-        star.style.left = `${Math.random() * 100}vw`;
-        star.style.top = `${Math.random() * 100}vh`;
-        body.appendChild(star);
-    }
-
-    const planetStyles = [
-        { bg: "radial-gradient(circle, #4A90E2, #1E3A8A)", size: 50 },
-        { bg: "radial-gradient(circle, #D97706, #78350F)", size: 40 },
-        { bg: "radial-gradient(circle, #8B5CF6, #4C1D95)", size: 55 },
-        { bg: "radial-gradient(circle, #EF4444, #991B1B)", size: 45 },
-        { bg: "radial-gradient(circle, #10B981, #064E3B)", size: 60 }
-    ];
-    planetStyles.forEach(p => {
-        const planet = document.createElement("div");
-        planet.className = "planet";
-        planet.style.background = p.bg;
-        const sizeInVw = p.size / window.innerWidth * 100;
-        const sizeInVh = p.size / window.innerHeight * 100;
-        const pos = getValidPosition(sizeInVw, sizeInVh);
-        planet.style.width = `${p.size}px`;
-        planet.style.height = `${p.size}px`;
-        planet.style.left = `${pos.left}vw`;
-        planet.style.top = `${pos.top}vh`;
-        body.appendChild(planet);
-        elements.push({ left: pos.left, top: pos.top, width: sizeInVw, height: sizeInVh });
-    });
-
-    const blackhole = document.createElement("div");
-    blackhole.className = "blackhole";
-    const bhSizeInVw = 200 / window.innerWidth * 100;
-    const bhSizeInVh = 200 / window.innerHeight * 100;
-    const bhPos = getValidPosition(bhSizeInVw, bhSizeInVh);
-    blackhole.style.left = `${bhPos.left}vw`;
-    blackhole.style.top = `${bhPos.top}vh`;
-    body.appendChild(blackhole);
-    elements.push({ left: bhPos.left, top: bhPos.top, width: bhSizeInVw, height: bhSizeInVh });
-}
-
-function addComet1() {
-    const body = document.body;
-    const comet = document.createElement("div");
-    comet.className = "comet comet1";
-    comet.style.left = `${Math.random() * 80 + 10}vw`;
-    comet.style.top = `${Math.random() * 20}vh`;
-    body.appendChild(comet);
-    setTimeout(() => comet.remove(), 700);
-    setTimeout(addComet1, Math.random() * 2000 + 3000);
-}
-
-function addComet2() {
-    const body = document.body;
-    const comet = document.createElement("div");
-    comet.className = "comet comet2";
-    comet.style.left = `${Math.random() * 80}vw`;
-    comet.style.top = `${Math.random() * 40 + 40}vh`;
-    body.appendChild(comet);
-    setTimeout(() => comet.remove(), 600);
-    setTimeout(addComet2, Math.random() * 2000 + 3000);
-}
-
-function addNewComet1() {
-    const body = document.body;
-    const comet = document.createElement("div");
-    comet.className = "new-comet";
-    comet.style.width = "10px";
-    comet.style.height = "10px";
-    comet.style.top = "0vh";
-    comet.style.left = "100vw";
-    body.appendChild(comet);
-}
-
-function addNewComet2() {
-    const body = document.body;
-    const comet = document.createElement("div");
-    comet.className = "new-comet";
-    comet.style.width = "15px";
-    comet.style.height = "15px";
-    comet.style.top = "50vh";
-    comet.style.left = "100vw";
-    comet.style.animationDelay = "2s";
-    body.appendChild(comet);
-}
-
-window.onload = function() {
-    addCosmicStuff();
-    addComet1();
-    addComet2();
-    addNewComet1();
-    addNewComet2();
-};
+// No cosmic background for now—add back once images work
+window.onload = function() {};

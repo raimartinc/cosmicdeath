@@ -14,74 +14,6 @@
             min-height: 100vh;
             position: relative;
         }
-        .star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            opacity: 0.8;
-        }
-        .planet {
-            position: absolute;
-            border-radius: 50%;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-        }
-        .blackhole {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, #000000 45%, #FF4500 55%, #FFA500 60%, #000000 70%);
-            box-shadow: 0 0 30px rgba(255, 69, 0, 0.8), 0 0 60px rgba(0, 191, 255, 0.3);
-            border-radius: 50%;
-            opacity: 0.9;
-            animation: pulse 5s infinite ease-in-out;
-            z-index: 5;
-            overflow: visible;
-        }
-        .blackhole::before {
-            content: '';
-            position: absolute;
-            width: 300px;
-            height: 8px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: linear-gradient(to right, transparent, #FFD700 25%, #FF4500 50%, #FFD700 75%, transparent);
-            opacity: 0.95;
-            z-index: 6;
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        .comet {
-            position: absolute;
-            width: 2px;
-            height: 20px;
-            background: linear-gradient(to bottom, white, transparent);
-            opacity: 0;
-        }
-        .comet1 { animation: comet1 0.7s linear; }
-        .comet2 { animation: comet2 0.6s linear; }
-        @keyframes comet1 {
-            0% { opacity: 1; transform: translateX(0) translateY(0); }
-            100% { opacity: 0; transform: translateX(-200px) translateY(200px); }
-        }
-        @keyframes comet2 {
-            0% { opacity: 1; transform: translateX(0) translateY(0); }
-            100% { opacity: 0; transform: translateX(250px) translateY(150px); }
-        }
-        .new-comet {
-            position: absolute;
-            background: linear-gradient(45deg, #FFD700, #FF4500);
-            box-shadow: 0 0 20px #FFD700;
-            border-radius: 50%;
-            animation: cometTrail 5s infinite linear;
-        }
-        @keyframes cometTrail {
-            0% { transform: translateX(100vw) translateY(-50vh); }
-            100% { transform: translateX(-100vw) translateY(50vh); }
-        }
         button {
             width: 120px;
             height: 120px;
@@ -116,7 +48,12 @@
             text-shadow: 0 0 5px white;
             margin: 20px 0;
         }
-        #deathImage {
+        #deathImageContainer {
+            margin: 20px auto;
+            position: relative;
+            z-index: 20;
+        }
+        .death-image {
             max-width: 300px;
             width: 300px;
             height: auto;
@@ -124,9 +61,7 @@
             border: 2px solid #FFD700;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
-            z-index: 20;
-            position: relative;
-            margin: 20px auto;
+            margin: 0 auto;
         }
     </style>
 </head>
@@ -134,7 +69,7 @@
     <h1>What’s Your Cosmic Death Scenario?</h1>
     <button onclick="getDeath()">Find Out Now!</button>
     <div id="result"></div>
-    <img id="deathImage" src="" alt="Cosmic Death Scene">
+    <div id="deathImageContainer"></div>
     <script src="script.js"></script>
 </body>
 </html>
