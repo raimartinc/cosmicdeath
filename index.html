@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Cosmic Death Scenario</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-PLACEHOLDER"
+         crossorigin="anonymous"></script>
     <style>
         body {
             background: black;
@@ -81,7 +83,7 @@
             background: linear-gradient(45deg, #FFD700, #FF4500);
             box-shadow: 0 0 20px #FFD700;
             border-radius: 50%;
-            animation: cometTrail 3s linear; /* Shortened to 3s */
+            animation: cometTrail 3s linear;
         }
         @keyframes cometTrail {
             0% { transform: translateX(100vw) translateY(-50vh); opacity: 1; }
@@ -137,15 +139,78 @@
             position: relative;
             opacity: 1;
         }
+        .ad-left, .ad-right {
+            width: 160px;
+            height: 600px;
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 15;
+        }
+        .ad-left { left: 20px; }
+        .ad-right { right: 20px; }
     </style>
 </head>
 <body>
+    <div class="ad-left">
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:160px;height:600px"
+             data-ad-client="ca-pub-PLACEHOLDER"
+             data-ad-slot="LEFT_SLOT_PLACEHOLDER"></ins>
+    </div>
     <h1>What’s Your Cosmic Death Scenario?</h1>
-    <button onclick="getDeath()">Find Out Now!</button>
+    <button onclick="handleClick()">Find Out Now!</button>
     <div id="result"></div>
     <img id="deathImage" src="images/probed.gif" alt="Cosmic Death Scene">
+    <div class="ad-right">
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:160px;height:600px"
+             data-ad-client="ca-pub-PLACEHOLDER"
+             data-ad-slot="RIGHT_SLOT_PLACEHOLDER"></ins>
+    </div>
     <script src="script.js"></script>
     <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        (adsbygoogle = window.adsbygoogle || []).push({});
+
+        let clickCount = 0;
+
+        function handleClick() {
+            clickCount++;
+            getDeath(); // Call your existing function from script.js
+            if (clickCount % 2 === 0) { // Every 2nd click
+                refreshAds();
+            }
+        }
+
+        function refreshAds() {
+            // Refresh left ad
+            document.querySelector('.ad-left ins').innerHTML = '';
+            const adLeft = document.createElement('ins');
+            adLeft.className = 'adsbygoogle';
+            adLeft.style.display = 'inline-block';
+            adLeft.style.width = '160px';
+            adLeft.style.height = '600px';
+            adLeft.setAttribute('data-ad-client', 'ca-pub-PLACEHOLDER');
+            adLeft.setAttribute('data-ad-slot', 'LEFT_SLOT_PLACEHOLDER');
+            document.querySelector('.ad-left').appendChild(adLeft);
+
+            // Refresh right ad
+            document.querySelector('.ad-right ins').innerHTML = '';
+            const adRight = document.createElement('ins');
+            adRight.className = 'adsbygoogle';
+            adRight.style.display = 'inline-block';
+            adRight.style.width = '160px';
+            adRight.style.height = '600px';
+            adRight.setAttribute('data-ad-client', 'ca-pub-PLACEHOLDER');
+            adRight.setAttribute('data-ad-slot', 'RIGHT_SLOT_PLACEHOLDER');
+            document.querySelector('.ad-right').appendChild(adRight);
+
+            // Push new ads
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        }
+
         function createStars() {
             for (let i = 0; i < 100; i++) {
                 const star = document.createElement('div');
@@ -171,11 +236,10 @@
                     return true;
                 }
             }
-            // Safe zone: Center area (button/image)
-            const safeZoneX = 40; // vw (center minus half width)
-            const safeZoneY = 30; // vh (center minus half height)
-            const safeZoneWidth = 20; // vw (approx 300px wide)
-            const safeZoneHeight = 40; // vh (approx 400px tall)
+            const safeZoneX = 40;
+            const safeZoneY = 30;
+            const safeZoneWidth = 20;
+            const safeZoneHeight = 40;
             if (x < safeZoneX + safeZoneWidth + buffer / window.innerWidth * 100 &&
                 x + width > safeZoneX - buffer / window.innerWidth * 100 &&
                 y < safeZoneY + safeZoneHeight + buffer / window.innerHeight * 100 &&
@@ -192,8 +256,8 @@
                 let x, y, size;
                 do {
                     size = Math.random() * 50 + 20;
-                    x = Math.random() * 80 + 10; // vw
-                    y = Math.random() * 80 + 10; // vh
+                    x = Math.random() * 80 + 10;
+                    y = Math.random() * 80 + 10;
                     attempts++;
                     if (attempts > 50) break;
                 } while (isOverlapping(x, y, size / window.innerWidth * 100, size / window.innerHeight * 100, planets));
@@ -215,8 +279,8 @@
             let attempts = 0;
             let x, y;
             do {
-                x = Math.random() * 60 + 20; // vw
-                y = Math.random() * 60 + 20; // vh
+                x = Math.random() * 60 + 20;
+                y = Math.random() * 60 + 20;
                 attempts++;
                 if (attempts > 50) break;
             } while (isOverlapping(x, y, 200 / window.innerWidth * 100, 200 / window.innerHeight * 100, planets));
@@ -247,7 +311,7 @@
         let cometCount = 0;
         function createNewComet() {
             const existingComets = document.querySelectorAll('.new-comet');
-            if (existingComets.length >= 2) return; // Max 2 comets
+            if (existingComets.length >= 2) return;
             
             const comet = document.createElement('div');
             comet.className = 'new-comet';
@@ -261,14 +325,14 @@
                 comet.remove();
                 cometCount--;
             });
-            setTimeout(createNewComet, 3000); // Next comet in 3s
+            setTimeout(createNewComet, 3000);
         }
         window.onload = () => {
             createStars();
             createPlanets();
             createBlackhole();
             createComets();
-            setTimeout(createNewComet, 0); // Start first comet immediately
+            setTimeout(createNewComet, 0);
         };
     </script>
 </body>
