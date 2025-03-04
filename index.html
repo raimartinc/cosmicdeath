@@ -177,14 +177,13 @@
 
         function handleClick() {
             clickCount++;
-            getDeath(); // Call your existing function from script.js
-            if (clickCount % 2 === 0) { // Every 2nd click
+            getDeath();
+            if (clickCount % 2 === 0) {
                 refreshAds();
             }
         }
 
         function refreshAds() {
-            // Refresh left ad
             document.querySelector('.ad-left ins').innerHTML = '';
             const adLeft = document.createElement('ins');
             adLeft.className = 'adsbygoogle';
@@ -195,7 +194,6 @@
             adLeft.setAttribute('data-ad-slot', 'LEFT_SLOT_PLACEHOLDER');
             document.querySelector('.ad-left').appendChild(adLeft);
 
-            // Refresh right ad
             document.querySelector('.ad-right ins').innerHTML = '';
             const adRight = document.createElement('ins');
             adRight.className = 'adsbygoogle';
@@ -206,7 +204,6 @@
             adRight.setAttribute('data-ad-slot', 'RIGHT_SLOT_PLACEHOLDER');
             document.querySelector('.ad-right').appendChild(adRight);
 
-            // Push new ads
             (adsbygoogle = window.adsbygoogle || []).push({});
             (adsbygoogle = window.adsbygoogle || []).push({});
         }
@@ -249,13 +246,13 @@
             return false;
         }
         function createPlanets() {
-            const colors = ['#FF4500', '#00CED1', '#FFD700', '#8A2BE2', '#FF69B4'];
+            const colors = ['#FF4500', '#00CED1', '#FFD700', '#8A2BE2']; // 4 colors now
             const planets = [];
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < 4; i++) { // Changed from 5 to 4
                 let attempts = 0;
                 let x, y, size;
                 do {
-                    size = Math.random() * 50 + 20;
+                    size = Math.random() * 50 + 25; // Min size 25px, was 20px
                     x = Math.random() * 80 + 10;
                     y = Math.random() * 80 + 10;
                     attempts++;
@@ -325,7 +322,7 @@
                 comet.remove();
                 cometCount--;
             });
-            setTimeout(createNewComet, 3000);
+            setTimeout(createNewComet, 4000); // Changed from 3000 to 4000 (4s)
         }
         window.onload = () => {
             createStars();
