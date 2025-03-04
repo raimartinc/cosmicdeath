@@ -1,10 +1,8 @@
-async function getDeath() {
+function getDeath() {
     console.log("Button clicked - starting getDeath!");
-    document.getElementById("result").innerHTML = "Calculating your cosmic doom...";
-
-    // Hide all images
-    const images = document.querySelectorAll(".death-image");
-    images.forEach(img => img.style.display = "none");
+    const result = document.getElementById("result");
+    const deathImage = document.getElementById("deathImage");
+    result.innerHTML = "Calculating your cosmic doom...";
 
     const cosmicObjects = [
         "Ceres", "Vesta", "Pallas", "Juno", "Eros", "Psyche", "Apophis",
@@ -54,18 +52,59 @@ async function getDeath() {
         ? `You’re ${action} a ${quirk} ${cosmicThing === "supermassive black hole" ? cosmicThing : cosmicThing} ${extra}.`
         : `You’re ${action} by a ${quirk} ${cosmicThing === "supermassive black hole" ? cosmicThing : cosmicThing} ${extra}.`;
     console.log("Death generated:", death);
-    document.getElementById("result").innerHTML = death;
+    result.innerHTML = death;
 
-    // Show the corresponding image
-    const imgId = `img-${action.replace(/\s+/g, "-").toLowerCase()}`;
-    const deathImage = document.getElementById(imgId);
-    if (deathImage) {
-        deathImage.style.display = "block";
-        console.log(`Action: "${action}", Image displayed: ${deathImage.src}`);
-    } else {
-        console.error(`Image not found for action: "${action}"`);
-    }
+    const actionImages = {
+        "vaporized": "images/vaporized.gif",
+        "crushed": "images/crushed.gif",
+        "eaten": "images/eaten.gif",
+        "probed": "images/probed.gif",
+        "flattened": "images/flattened.gif",
+        "sucked into": "images/sucked into.gif",
+        "melted": "images/melted.gif",
+        "zapped": "images/zapped.gif",
+        "obliterated": "images/obliterated.gif",
+        "teleported inside": "images/teleported inside.gif",
+        "smothered": "images/smothered.gif",
+        "disintegrated": "images/disintegrated.gif",
+        "swallowed whole": "images/swallowed whole.gif",
+        "blasted": "images/blasted.gif",
+        "impaled": "images/impaled.gif",
+        "frozen by": "images/frozen by.gif",
+        "cooked by": "images/cooked by.gif",
+        "tangled in": "images/tangled in.gif",
+        "dissolved": "images/dissolved.gif",
+        "electrocuted": "images/electrocuted.gif",
+        "launched into": "images/launched into.gif",
+        "shredded": "images/shredded.gif",
+        "bamboozled": "images/bamboozled.gif",
+        "squashed": "images/squashed.gif",
+        "hypnotized by": "images/hypnotized by.gif",
+        "chased down by": "images/chased down by.gif",
+        "engulfed": "images/engulfed.gif",
+        "spaghettified": "images/spaghettified.gif",
+        "warped": "images/warped.gif",
+        "tickled to death": "images/tickled to death.gif",
+        "photobombed into oblivion": "images/photobombed into oblivion.gif",
+        "danced off": "images/danced off.gif",
+        "abducted and yeeted": "images/abducted and yeeted.gif",
+        "karate-chopped": "images/karate-chopped.gif",
+        "moonwalked over": "images/moonwalked over.gif",
+        "overdosed on cosmic rays": "images/overdosed on cosmic rays.gif",
+        "pranked into a wormhole": "images/pranked into a wormhole.gif",
+        "slapped into orbit": "images/slapped into orbit.gif",
+        "burped into stardust": "images/burped into stardust.gif",
+        "noodled": "images/noodled.gif",
+        "high-fived to smithereens": "images/high-fived to smithereens.gif"
+    };
+
+    const imgSrc = actionImages[action] || "images/probed.gif"; // Default to probed
+    console.log(`Action: "${action}", Setting image source: ${imgSrc}`);
+
+    deathImage.style.display = "none"; // Hide briefly
+    deathImage.src = imgSrc;
+    setTimeout(() => {
+        deathImage.style.display = "block"; // Show after src swap
+        console.log(`Action: "${action}", Image source set and displayed: ${deathImage.src}`);
+    }, 50); // Small delay to ensure load
 }
-
-// No cosmic background yet—add later
-window.onload = function() {};

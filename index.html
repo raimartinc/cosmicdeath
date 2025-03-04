@@ -9,10 +9,83 @@
             color: white;
             text-align: center;
             font-family: Arial;
+            overflow: hidden;
             margin: 0;
-            padding: 0;
-            min-height: 100vh;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             position: relative;
+        }
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+        }
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+            z-index: 5;
+        }
+        .blackhole {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, #000000 45%, #FF4500 55%, #FFA500 60%, #000000 70%);
+            box-shadow: 0 0 30px rgba(255, 69, 0, 0.8), 0 0 60px rgba(0, 191, 255, 0.3);
+            border-radius: 50%;
+            opacity: 0.9;
+            animation: pulse 5s infinite ease-in-out;
+            z-index: 5;
+            overflow: visible;
+        }
+        .blackhole::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 8px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(to right, transparent, #FFD700 25%, #FF4500 50%, #FFD700 75%, transparent);
+            opacity: 0.95;
+            z-index: 6;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .comet {
+            position: absolute;
+            width: 2px;
+            height: 20px;
+            background: linear-gradient(to bottom, white, transparent);
+            opacity: 0;
+        }
+        .comet1 { animation: comet1 0.7s linear; }
+        .comet2 { animation: comet2 0.6s linear; }
+        @keyframes comet1 {
+            0% { opacity: 1; transform: translateX(0) translateY(0); }
+            100% { opacity: 0; transform: translateX(-200px) translateY(200px); }
+        }
+        @keyframes comet2 {
+            0% { opacity: 1; transform: translateX(0) translateY(0); }
+            100% { opacity: 0; transform: translateX(250px) translateY(150px); }
+        }
+        .new-comet {
+            position: absolute;
+            background: linear-gradient(45deg, #FFD700, #FF4500);
+            box-shadow: 0 0 20px #FFD700;
+            border-radius: 50%;
+            animation: cometTrail 3s linear; /* Shortened to 3s */
+        }
+        @keyframes cometTrail {
+            0% { transform: translateX(100vw) translateY(-50vh); opacity: 1; }
+            100% { transform: translateX(-100vw) translateY(50vh); opacity: 0; }
         }
         button {
             width: 120px;
@@ -28,8 +101,10 @@
             box-shadow: 0 0 20px #FFD700, inset 0 0 10px #FFFFFF;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin: 20px auto;
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
         button:hover {
             transform: scale(1.1);
@@ -39,29 +114,28 @@
             position: relative;
             z-index: 10;
             text-shadow: 0 0 10px white;
-            margin: 20px 0;
+            margin-bottom: 20px;
         }
         #result {
+            margin-top: 20px;
             font-size: 24px;
             position: relative;
             z-index: 10;
             text-shadow: 0 0 5px white;
-            margin: 20px 0;
+            opacity: 1;
         }
-        #deathImageContainer {
-            margin: 20px auto;
-            position: relative;
-            z-index: 20;
-        }
-        .death-image {
+        #deathImage {
+            margin-top: 20px;
             max-width: 300px;
             width: 300px;
             height: auto;
-            display: none; /* Hidden by default */
+            display: block;
             border: 2px solid #FFD700;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
-            margin: 0 auto;
+            z-index: 20;
+            position: relative;
+            opacity: 1;
         }
     </style>
 </head>
@@ -69,49 +143,133 @@
     <h1>What’s Your Cosmic Death Scenario?</h1>
     <button onclick="getDeath()">Find Out Now!</button>
     <div id="result"></div>
-    <div id="deathImageContainer">
-        <img id="img-vaporized" class="death-image" src="https://i.imgur.com/X8rK5P9.gif" alt="Cosmic Death Scene">
-        <img id="img-crushed" class="death-image" src="https://i.imgur.com/9pN2XvK.gif" alt="Cosmic Death Scene">
-        <img id="img-eaten" class="death-image" src="https://i.imgur.com/YxR9m4T.gif" alt="Cosmic Death Scene">
-        <img id="img-probed" class="death-image" src="https://i.imgur.com/0vTqK0L.gif" alt="Cosmic Death Scene">
-        <img id="img-flattened" class="death-image" src="https://i.imgur.com/9nY8P2M.gif" alt="Cosmic Death Scene">
-        <img id="img-sucked-into" class="death-image" src="https://i.imgur.com/8mJ4R9Q.gif" alt="Cosmic Death Scene">
-        <img id="img-melted" class="death-image" src="https://i.imgur.com/7rK5P9X.gif" alt="Cosmic Death Scene">
-        <img id="img-zapped" class="death-image" src="https://i.imgur.com/3vN6R8L.gif" alt="Cosmic Death Scene">
-        <img id="img-obliterated" class="death-image" src="https://i.imgur.com/5H7vL8Q.gif" alt="Cosmic Death Scene">
-        <img id="img-teleported-inside" class="death-image" src="https://i.imgur.com/5tR9K7P.gif" alt="Cosmic Death Scene">
-        <img id="img-smothered" class="death-image" src="https://i.imgur.com/7nP8X4V.gif" alt="Cosmic Death Scene">
-        <img id="img-disintegrated" class="death-image" src="https://i.imgur.com/6H7vL8Q.gif" alt="Cosmic Death Scene">
-        <img id="img-swallowed-whole" class="death-image" src="https://i.imgur.com/YxR9m4T.gif" alt="Cosmic Death Scene">
-        <img id="img-blasted" class="death-image" src="https://i.imgur.com/5H7vL8Q.gif" alt="Cosmic Death Scene">
-        <img id="img-impaled" class="death-image" src="https://i.imgur.com/8pN2XvK.gif" alt="Cosmic Death Scene">
-        <img id="img-frozen-by" class="death-image" src="https://i.imgur.com/4rM9K5Q.gif" alt="Cosmic Death Scene">
-        <img id="img-cooked-by" class="death-image" src="https://i.imgur.com/7rK5P9X.gif" alt="Cosmic Death Scene">
-        <img id="img-tangled-in" class="death-image" src="https://i.imgur.com/8mJ4R9Q.gif" alt="Cosmic Death Scene">
-        <img id="img-dissolved" class="death-image" src="https://i.imgur.com/7rK5P9X.gif" alt="Cosmic Death Scene">
-        <img id="img-electrocuted" class="death-image" src="https://i.imgur.com/3vN6R8L.gif" alt="Cosmic Death Scene">
-        <img id="img-launched-into" class="death-image" src="https://i.imgur.com/0nP5K2X.gif" alt="Cosmic Death Scene">
-        <img id="img-shredded" class="death-image" src="https://i.imgur.com/8pN2XvK.gif" alt="Cosmic Death Scene">
-        <img id="img-bamboozled" class="death-image" src="https://i.imgur.com/5nR8P7K.gif" alt="Cosmic Death Scene">
-        <img id="img-squashed" class="death-image" src="https://i.imgur.com/9pN2XvK.gif" alt="Cosmic Death Scene">
-        <img id="img-hypnotized-by" class="death-image" src="https://i.imgur.com/7tN9K3P.gif" alt="Cosmic Death Scene">
-        <img id="img-chased-down-by" class="death-image" src="https://i.imgur.com/6nY8P2M.gif" alt="Cosmic Death Scene">
-        <img id="img-engulfed" class="death-image" src="https://i.imgur.com/8mJ4R9Q.gif" alt="Cosmic Death Scene">
-        <img id="img-spaghettified" class="death-image" src="https://i.imgur.com/7rK5P9X.gif" alt="Cosmic Death Scene">
-        <img id="img-warped" class="death-image" src="https://i.imgur.com/5tR9K7P.gif" alt="Cosmic Death Scene">
-        <img id="img-tickled-to-death" class="death-image" src="https://i.imgur.com/3nP9K5X.gif" alt="Cosmic Death Scene">
-        <img id="img-photobombed-into-oblivion" class="death-image" src="https://i.imgur.com/5nR8P7K.gif" alt="Cosmic Death Scene">
-        <img id="img-danced-off" class="death-image" src="https://i.imgur.com/6tN7K9P.gif" alt="Cosmic Death Scene">
-        <img id="img-abducted-and-yeeted" class="death-image" src="https://i.imgur.com/0vTqK0L.gif" alt="Cosmic Death Scene">
-        <img id="img-karate-chopped" class="death-image" src="https://i.imgur.com/7nP8X4V.gif" alt="Cosmic Death Scene">
-        <img id="img-moonwalked-over" class="death-image" src="https://i.imgur.com/5tR9K7P.gif" alt="Cosmic Death Scene">
-        <img id="img-overdosed-on-cosmic-rays" class="death-image" src="https://i.imgur.com/3vN6R8L.gif" alt="Cosmic Death Scene">
-        <img id="img-pranked-into-a-wormhole" class="death-image" src="https://i.imgur.com/8mJ4R9Q.gif" alt="Cosmic Death Scene">
-        <img id="img-slapped-into-orbit" class="death-image" src="https://i.imgur.com/9nY8P2M.gif" alt="Cosmic Death Scene">
-        <img id="img-burped-into-stardust" class="death-image" src="https://i.imgur.com/8pN2XvK.gif" alt="Cosmic Death Scene">
-        <img id="img-noodled" class="death-image" src="https://i.imgur.com/7rK5P9X.gif" alt="Cosmic Death Scene">
-        <img id="img-high-fived-to-smithereens" class="death-image" src="https://i.imgur.com/0nP5K2X.gif" alt="Cosmic Death Scene">
-    </div>
+    <img id="deathImage" src="images/probed.gif" alt="Cosmic Death Scene">
     <script src="script.js"></script>
+    <script>
+        function createStars() {
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.width = `${Math.random() * 3 + 1}px`;
+                star.style.height = star.style.width;
+                star.style.left = `${Math.random() * 100}vw`;
+                star.style.top = `${Math.random() * 100}vh`;
+                star.style.animation = `twinkle ${Math.random() * 2 + 1}s infinite alternate`;
+                document.body.appendChild(star);
+            }
+        }
+        function isOverlapping(x, y, width, height, elements, buffer = 50) {
+            for (let el of elements) {
+                const elX = parseFloat(el.style.left);
+                const elY = parseFloat(el.style.top);
+                const elWidth = parseFloat(el.style.width) / window.innerWidth * 100;
+                const elHeight = parseFloat(el.style.height) / window.innerHeight * 100;
+                if (x < elX + elWidth + buffer / window.innerWidth * 100 &&
+                    x + width > elX - buffer / window.innerWidth * 100 &&
+                    y < elY + elHeight + buffer / window.innerHeight * 100 &&
+                    y + height > elY - buffer / window.innerHeight * 100) {
+                    return true;
+                }
+            }
+            // Safe zone: Center area (button/image)
+            const safeZoneX = 40; // vw (center minus half width)
+            const safeZoneY = 30; // vh (center minus half height)
+            const safeZoneWidth = 20; // vw (approx 300px wide)
+            const safeZoneHeight = 40; // vh (approx 400px tall)
+            if (x < safeZoneX + safeZoneWidth + buffer / window.innerWidth * 100 &&
+                x + width > safeZoneX - buffer / window.innerWidth * 100 &&
+                y < safeZoneY + safeZoneHeight + buffer / window.innerHeight * 100 &&
+                y + height > safeZoneY - buffer / window.innerHeight * 100) {
+                return true;
+            }
+            return false;
+        }
+        function createPlanets() {
+            const colors = ['#FF4500', '#00CED1', '#FFD700', '#8A2BE2', '#FF69B4'];
+            const planets = [];
+            for (let i = 0; i < 5; i++) {
+                let attempts = 0;
+                let x, y, size;
+                do {
+                    size = Math.random() * 50 + 20;
+                    x = Math.random() * 80 + 10; // vw
+                    y = Math.random() * 80 + 10; // vh
+                    attempts++;
+                    if (attempts > 50) break;
+                } while (isOverlapping(x, y, size / window.innerWidth * 100, size / window.innerHeight * 100, planets));
+                
+                const planet = document.createElement('div');
+                planet.className = 'planet';
+                planet.style.width = `${size}px`;
+                planet.style.height = `${size}px`;
+                planet.style.background = `radial-gradient(circle, ${colors[i % colors.length]}, #000000)`;
+                planet.style.left = `${x}vw`;
+                planet.style.top = `${y}vh`;
+                planet.style.animation = `orbit ${Math.random() * 20 + 10}s infinite linear`;
+                document.body.appendChild(planet);
+                planets.push(planet);
+            }
+        }
+        function createBlackhole() {
+            const planets = document.querySelectorAll('.planet');
+            let attempts = 0;
+            let x, y;
+            do {
+                x = Math.random() * 60 + 20; // vw
+                y = Math.random() * 60 + 20; // vh
+                attempts++;
+                if (attempts > 50) break;
+            } while (isOverlapping(x, y, 200 / window.innerWidth * 100, 200 / window.innerHeight * 100, planets));
+            
+            const blackhole = document.createElement('div');
+            blackhole.className = 'blackhole';
+            blackhole.style.left = `${x}vw`;
+            blackhole.style.top = `${y}vh`;
+            document.body.appendChild(blackhole);
+        }
+        function createComets() {
+            setInterval(() => {
+                const comet1 = document.createElement('div');
+                comet1.className = 'comet comet1';
+                comet1.style.left = `${Math.random() * 50 + 25}vw`;
+                comet1.style.top = `${Math.random() * 20}vh`;
+                document.body.appendChild(comet1);
+                setTimeout(() => comet1.remove(), 700);
+
+                const comet2 = document.createElement('div');
+                comet2.className = 'comet comet2';
+                comet2.style.left = `${Math.random() * 50 + 25}vw`;
+                comet2.style.top = `${Math.random() * 20}vh`;
+                document.body.appendChild(comet2);
+                setTimeout(() => comet2.remove(), 600);
+            }, 2000);
+        }
+        let cometCount = 0;
+        function createNewComet() {
+            const existingComets = document.querySelectorAll('.new-comet');
+            if (existingComets.length >= 2) return; // Max 2 comets
+            
+            const comet = document.createElement('div');
+            comet.className = 'new-comet';
+            comet.style.width = '10px';
+            comet.style.height = '10px';
+            comet.style.left = `${Math.random() * 100}vw`;
+            comet.style.top = `${Math.random() * 100}vh`;
+            document.body.appendChild(comet);
+            cometCount++;
+            comet.addEventListener('animationend', () => {
+                comet.remove();
+                cometCount--;
+            });
+            setTimeout(createNewComet, 3000); // Next comet in 3s
+        }
+        window.onload = () => {
+            createStars();
+            createPlanets();
+            createBlackhole();
+            createComets();
+            setTimeout(createNewComet, 0); // Start first comet immediately
+        };
+    </script>
 </body>
 </html>
