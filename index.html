@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Cosmic Death Scenario</title>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-PLACEHOLDER"
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9925950012374716"
          crossorigin="anonymous"></script>
     <style>
         body {
@@ -155,8 +155,8 @@
     <div class="ad-left">
         <ins class="adsbygoogle"
              style="display:inline-block;width:160px;height:600px"
-             data-ad-client="ca-pub-PLACEHOLDER"
-             data-ad-slot="LEFT_SLOT_PLACEHOLDER"></ins>
+             data-ad-client="ca-pub-9925950012374716"
+             data-ad-slot="1949929389"></ins>
     </div>
     <h1>What’s Your Cosmic Death Scenario?</h1>
     <button onclick="handleClick()">Find Out Now!</button>
@@ -165,8 +165,8 @@
     <div class="ad-right">
         <ins class="adsbygoogle"
              style="display:inline-block;width:160px;height:600px"
-             data-ad-client="ca-pub-PLACEHOLDER"
-             data-ad-slot="RIGHT_SLOT_PLACEHOLDER"></ins>
+             data-ad-client="ca-pub-9925950012374716"
+             data-ad-slot="6391499594"></ins>
     </div>
     <script src="script.js"></script>
     <script>
@@ -190,8 +190,8 @@
             adLeft.style.display = 'inline-block';
             adLeft.style.width = '160px';
             adLeft.style.height = '600px';
-            adLeft.setAttribute('data-ad-client', 'ca-pub-PLACEHOLDER');
-            adLeft.setAttribute('data-ad-slot', 'LEFT_SLOT_PLACEHOLDER');
+            adLeft.setAttribute('data-ad-client', 'ca-pub-9925950012374716');
+            adLeft.setAttribute('data-ad-slot', '1949929389');
             document.querySelector('.ad-left').appendChild(adLeft);
 
             document.querySelector('.ad-right ins').innerHTML = '';
@@ -200,8 +200,8 @@
             adRight.style.display = 'inline-block';
             adRight.style.width = '160px';
             adRight.style.height = '600px';
-            adRight.setAttribute('data-ad-client', 'ca-pub-PLACEHOLDER');
-            adRight.setAttribute('data-ad-slot', 'RIGHT_SLOT_PLACEHOLDER');
+            adRight.setAttribute('data-ad-client', 'ca-pub-9925950012374716');
+            adRight.setAttribute('data-ad-slot', '6391499594');
             document.querySelector('.ad-right').appendChild(adRight);
 
             (adsbygoogle = window.adsbygoogle || []).push({});
@@ -240,19 +240,19 @@
             if (x < safeZoneX + safeZoneWidth + buffer / window.innerWidth * 100 &&
                 x + width > safeZoneX - buffer / window.innerWidth * 100 &&
                 y < safeZoneY + safeZoneHeight + buffer / window.innerHeight * 100 &&
-                y + height > safeZoneY - buffer / window.innerHeight * 100) {
-                return true;
-            }
+                y + height > elY - buffer / window.innerHeight * 100) {
+                    return true;
+                }
             return false;
         }
         function createPlanets() {
-            const colors = ['#FF4500', '#00CED1', '#FFD700', '#8A2BE2']; // 4 colors now
+            const colors = ['#FF4500', '#00CED1', '#FFD700', '#8A2BE2'];
             const planets = [];
-            for (let i = 0; i < 4; i++) { // Changed from 5 to 4
+            for (let i = 0; i < 4; i++) {
                 let attempts = 0;
                 let x, y, size;
                 do {
-                    size = Math.random() * 50 + 25; // Min size 25px, was 20px
+                    size = Math.random() * 50 + 25;
                     x = Math.random() * 80 + 10;
                     y = Math.random() * 80 + 10;
                     attempts++;
@@ -322,7 +322,7 @@
                 comet.remove();
                 cometCount--;
             });
-            setTimeout(createNewComet, 4000); // Changed from 3000 to 4000 (4s)
+            setTimeout(createNewComet, 4000);
         }
         window.onload = () => {
             createStars();
