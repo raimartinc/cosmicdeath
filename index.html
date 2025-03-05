@@ -38,49 +38,26 @@
         }
         .blackhole {
             position: absolute;
-            width: 200px;
-            height: 200px;
+            width: 100px; /* Reduced from 200px */
+            height: 100px;
             background: radial-gradient(circle, #000000 45%, #FF4500 55%, #FFA500 60%, #000000 70%);
-            box-shadow: 0 0 30px rgba(255, 69, 0, 0.8), 0 0 60px rgba(0, 191, 255, 0.3);
+            box-shadow: 0 0 20px rgba(255, 69, 0, 0.8); /* Lighter shadow */
             border-radius: 50%;
             opacity: 0.9;
-            animation: pulse 5s infinite ease-in-out;
             z-index: 5;
             overflow: visible;
         }
         .blackhole::before {
             content: '';
             position: absolute;
-            width: 300px;
-            height: 8px;
+            width: 150px; /* Scaled down from 300px */
+            height: 4px; /* Thinner */
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             background: linear-gradient(to right, transparent, #FFD700 25%, #FF4500 50%, #FFD700 75%, transparent);
             opacity: 0.95;
             z-index: 6;
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        .comet {
-            position: absolute;
-            width: 2px;
-            height: 20px;
-            background: linear-gradient(to bottom, white, transparent);
-            opacity: 0;
-        }
-        .comet1 { animation: comet1 0.7s linear; }
-        .comet2 { animation: comet2 0.6s linear; }
-        @keyframes comet1 {
-            0% { opacity: 1; transform: translateX(0) translateY(0); }
-            100% { opacity: 0; transform: translateX(-200px) translateY(200px); }
-        }
-        @keyframes comet2 {
-            0% { opacity: 1; transform: translateX(0) translateY(0); }
-            100% { opacity: 0; transform: translateX(250px) translateY(150px); }
         }
         .new-comet {
             position: absolute;
@@ -235,14 +212,13 @@
                     x + width > elX - buffer / window.innerWidth * 100 &&
                     y < elY + elHeight + buffer / window.innerHeight * 100 &&
                     y + height > elY - buffer / window.innerHeight * 100) {
-                    return true;
-                }
+                        return true;
+                    }
             }
-            // Safe zone: Center area (button/image)
-            const safeZoneX = 40; // vw (center minus half width)
-            const safeZoneY = 30; // vh (center minus half height)
-            const safeZoneWidth = 20; // vw (approx 300px wide)
-            const safeZoneHeight = 40; // vh (approx 400px tall)
+            const safeZoneX = 40;
+            const safeZoneY = 30;
+            const safeZoneWidth = 20;
+            const safeZoneHeight = 40;
             if (x < safeZoneX + safeZoneWidth + buffer / window.innerWidth * 100 &&
                 x + width > safeZoneX - buffer / window.innerWidth * 100 &&
                 y < safeZoneY + safeZoneHeight + buffer / window.innerHeight * 100 &&
@@ -260,8 +236,8 @@
                 let x, y, size;
                 do {
                     size = Math.random() * 50 + 20;
-                    x = Math.random() * 80 + 10; // vw
-                    y = Math.random() * 80 + 10; // vh
+                    x = Math.random() * 80 + 10;
+                    y = Math.random() * 80 + 10;
                     attempts++;
                     if (attempts > 50) break;
                 } while (isOverlapping(x, y, size / window.innerWidth * 100, size / window.innerHeight * 100, planets));
@@ -284,35 +260,17 @@
             let attempts = 0;
             let x, y;
             do {
-                x = Math.random() * 60 + 20; // vw
-                y = Math.random() * 60 + 20; // vh
+                x = Math.random() * 60 + 20;
+                y = Math.random() * 60 + 20;
                 attempts++;
                 if (attempts > 50) break;
-            } while (isOverlapping(x, y, 200 / window.innerWidth * 100, 200 / window.innerHeight * 100, planets));
+            } while (isOverlapping(x, y, 100 / window.innerWidth * 100, 100 / window.innerHeight * 100, planets));
             
             const blackhole = document.createElement('div');
             blackhole.className = 'blackhole';
             blackhole.style.left = `${x}vw`;
             blackhole.style.top = `${y}vh`;
             document.body.appendChild(blackhole);
-        }
-
-        function createComets() {
-            setInterval(() => {
-                const comet1 = document.createElement('div');
-                comet1.className = 'comet comet1';
-                comet1.style.left = `${Math.random() * 50 + 25}vw`;
-                comet1.style.top = `${Math.random() * 20}vh`;
-                document.body.appendChild(comet1);
-                setTimeout(() => comet1.remove(), 700);
-
-                const comet2 = document.createElement('div');
-                comet2.className = 'comet comet2';
-                comet2.style.left = `${Math.random() * 50 + 25}vw`;
-                comet2.style.top = `${Math.random() * 20}vh`;
-                document.body.appendChild(comet2);
-                setTimeout(() => comet2.remove(), 600);
-            }, 2000);
         }
 
         let cometCount = 0;
@@ -332,15 +290,14 @@
                 comet.remove();
                 cometCount--;
             });
-            setTimeout(createNewComet, 3000); // Next comet in 3s
+            setTimeout(createNewComet, 3000); // Next comet in 3s, as original
         }
 
         window.onload = () => {
             createStars();
             createPlanets();
             createBlackhole();
-            createComets();
-            setTimeout(createNewComet, 0); // Start first comet immediately
+            setTimeout(createNewComet, 0);
         };
     </script>
 </body>
